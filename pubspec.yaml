@@ -1,7 +1,7 @@
-name: flutter_aliyun_captcha
-description: 适用于 Flutter 的阿里云人机验证插件
-version: 1.0.5
-homepage: https://github.com/leanflutter/flutter_aliyun_captcha
+name: flutter_aliyun_slider
+description: 适用于 Flutter 的阿里云人机验证插件，兼容客户端和 WEB 端
+version: 1.1.5
+homepage: https://github.com/sharebravery/flutter_aliyun_slider
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -20,7 +20,7 @@ flutter:
   plugin:
     platforms:
       android:
-        package: org.leanflutter.plugins.flutter_aliyun_captcha
+        package: org.leanflutter.plugins.flutter_aliyun_slider
         pluginClass: FlutterAliyunCaptchaPlugin
       ios:
         pluginClass: FlutterAliyunCaptchaPlugin

@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'aliyun_captcha_controller.dart';
 import 'aliyun_captcha_option.dart';
 import 'aliyun_captcha_type.dart';
+import 'aliyun_slider_iframe.dart';
 import 'constants.dart';
 
 class AliyunCaptchaButton extends StatefulWidget {
@@ -96,7 +97,7 @@ class _AliyunCaptchaButtonState extends State<AliyunCaptchaButton> {
     }
   }
 
-  void _onPlatformViewCreated(int viewId) {
+  Future<void> _onPlatformViewCreated(int viewId) async {
     if (captchaController != null) {
       captchaController!.initWithViewId(viewId);
     }
@@ -105,8 +106,10 @@ class _AliyunCaptchaButtonState extends State<AliyunCaptchaButton> {
     );
     _eventChannel!.receiveBroadcastStream().listen(_handleOnEvent);
 
-    Future.delayed(Duration(milliseconds: 20))
-        .then((value) => captchaController!.refresh(null));
+    // Future.delayed(Duration(milliseconds: 20))
+    //     .then((value) => captchaController!.refresh(null));
+    await Future.delayed(Duration(milliseconds: 20));
+    captchaController!.refresh(null);
   }
 
   Widget _buildNativeView(BuildContext context) {
@@ -154,11 +157,26 @@ class _AliyunCaptchaButtonState extends State<AliyunCaptchaButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      key: _captchaButtonKey,
-      width: double.infinity,
-      height: double.infinity,
-      child: _buildNativeView(context),
-    );
+    // 检查当前平台是否为Web
+    if (kIsWeb) {
+      return Container(
+        key: _captchaButtonKey,
+        width: double.infinity,
+        height: double.infinity,
+        child: SliderIFrame(
+            slideUrl: widget.option?.sliderUrl ?? '',
+            onSuccess: widget.onSuccess,
+            onError: widget.onError,
+            onFailure: widget.onFailure),
+      ); // 如果是Web端，直接返回SlideIFrame
+    } else {
+      // 如果不是Web端，执行原来的构建逻辑
+      return Container(
+        key: _captchaButtonKey,
+        width: double.infinity,
+        height: double.infinity,
+        child: _buildNativeView(context),
+      );
+    }
   }
 }

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_aliyun_captcha/flutter_aliyun_captcha.dart';
+import 'package:flutter_aliyun_captcha/flutter_aliyun_slider.dart';
 
 const kLanguages = ['cn', 'en', 'ja_JP', 'ko_KR', 'ru_RU'];
 const kTests = ['pass', 'block'];
@@ -121,22 +121,22 @@ class _HomePageState extends State<HomePage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String sdkVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    try {
-      sdkVersion = await AliyunCaptcha.sdkVersion;
-    } on PlatformException {
-      sdkVersion = 'Failed to get platform version.';
-    }
+    // String sdkVersion;
+    // // Platform messages may fail, so we use a try/catch PlatformException.
+    // try {
+    //   sdkVersion = await AliyunCaptcha.sdkVersion;
+    // } on PlatformException {
+    //   sdkVersion = 'Failed to get platform version.';
+    // }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+    // // If the widget was removed from the tree while the asynchronous platform
+    // // message was in flight, we want to discard the reply rather than calling
+    // // setState to update our non-existent appearance.
+    // if (!mounted) return;
 
-    setState(() {
-      _sdkVersion = sdkVersion;
-    });
+    // setState(() {
+    //   _sdkVersion = sdkVersion;
+    // });
   }
 
   void _addLog(String method, dynamic data) {
@@ -238,8 +238,8 @@ class _HomePageState extends State<HomePage> {
                   Divider(height: 0, indent: 16, endIndent: 16),
                   SizedBox(height: 10),
                   Container(
-                    // width: double.infinity,
-                    width: 280,
+                    width: double.infinity,
+                    // width: 280,
                     height: 44,
                     margin: EdgeInsets.only(
                       top: 10,
@@ -251,6 +251,7 @@ class _HomePageState extends State<HomePage> {
                       controller: _captchaController,
                       type: _captchaType,
                       option: AliyunCaptchaOption(
+                        sliderUrl: 'http://192.168.1.9:8999/html/nc.html',
                         appKey: 'FFFF0N00000000006CAB',
                         scene: _captchaType == AliyunCaptchaType.slide
                             ? 'nc_login'
@@ -285,6 +286,7 @@ class _HomePageState extends State<HomePage> {
                         }
                       ''',
                       onSuccess: (dynamic data) {
+                        print("data: $data");
                         // {"sig": "...", "token": "..."}
                         _addLog('onSuccess', data);
                       },

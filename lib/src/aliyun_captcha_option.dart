@@ -1,6 +1,7 @@
 // https://help.aliyun.com/document_detail/121898.html
 
 class AliyunCaptchaOption {
+  String? sliderUrl;
   String? appKey;
   String? scene;
   String? language;
@@ -10,6 +11,7 @@ class AliyunCaptchaOption {
   dynamic? test;
 
   AliyunCaptchaOption({
+    this.sliderUrl,
     this.appKey,
     this.scene,
     this.language,
@@ -21,6 +23,7 @@ class AliyunCaptchaOption {
 
   Map<String, dynamic> toJson() {
     Map<String, dynamic> jsonObject = Map<String, dynamic>();
+    if (sliderUrl != null) jsonObject.putIfAbsent("sliderUrl", () => sliderUrl);
     if (appKey != null) jsonObject.putIfAbsent("appkey", () => appKey);
     if (scene != null) jsonObject.putIfAbsent("scene", () => scene);
     if (language != null) jsonObject.putIfAbsent("language", () => language);

@@ -1,6 +1,6 @@
-# flutter_aliyun_captcha
+# flutter_aliyun_slider
 
-适用于 Flutter 的阿里云人机验证插件
+适用于 Flutter 的阿里云人机验证插件，兼容客户端和 WEB 端
 
 > 支持滑动验证、智能验证（智能验证暂不支持刮刮卡等形式）。
 
@@ -38,7 +38,7 @@
 
 ```yaml
 dependencies:
-  flutter_aliyun_captcha: ^1.0.5
+  flutter_aliyun_slider: ^1.1.5
 ```
 
 您可以从命令行安装软件包：
@@ -49,10 +49,10 @@ $ flutter packages get
 
 ### 用法
 
-导入 `flutter_aliyun_captcha`
+导入 `flutter_aliyun_slider`
 
 ```dart
-import 'package:flutter_aliyun_captcha/flutter_aliyun_captcha.dart';
+import 'package:flutter_aliyun_slider/flutter_aliyun_slider.dart';
 ```
 
 #### 滑动验证
@@ -73,6 +73,7 @@ Container(
     controller: _captchaController,
     type: AliyunCaptchaType.slide, // 重要：请设置正确的类型
     option: AliyunCaptchaOption(
+      sliderUrl: "https://url.com",
       appKey: '<appKey>',
       scene: 'scene',
       language: 'cn',
@@ -145,28 +146,54 @@ AliyunCaptchaButton(
 String sdkVersion = await AliyunCaptcha.sdkVersion;
 ```
 
-## 许可证
+## Slide IFrame Html (暂时需要自行部署)
 
 ```
-MIT License
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://g.alicdn.com/AWSC/AWSC/awsc.js"></script>
+    <style>
+        #nc_1_wrapper {
+            width: 100vw !important;
+            height: 100vh !important;
+        }
+        /* 为 html 和 body 添加样式，确保它们铺满整个 iframe */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
 
-Copyright (c) 2021 LiJianying <lijy91@foxmail.com>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+<body style="margin: 0px">
+<div id="nc"></div>
+<script>
+    AWSC.use("nc", function (state, module) {
+        window.nc = module.init({
+            appkey: "appkey",
+            scene: "scene",
+            renderTo: "nc",
+            language: "en",
+            success: function (data) {
+                window.console && console.log(data.token)
+                window.parent.postMessage(JSON.stringify(data),'*');
+            },
+            // 滑动验证失败时触发该回调参数。
+            fail: function (failCode) {
+                 window.console && console.log(failCode);
+                window.parent.postMessage('','*');
+            },
+            // 验证码加载出现异常时触发该回调参数。
+            error: function (errorCode) {
+                 window.console && console.log(errorCode)
+            }
+        });
+    })
+</script>
+</body>
+</html>
 ```
+
+> fork by https://github.com/leanflutter/flutter_aliyun_captcha

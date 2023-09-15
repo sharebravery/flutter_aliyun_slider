@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_aliyun_captcha/flutter_aliyun_captcha.dart';
+import 'package:flutter_aliyun_slider/flutter_aliyun_slider.dart';
 
 void main() {
-  const MethodChannel channel = MethodChannel('flutter_aliyun_captcha');
+  const MethodChannel channel = MethodChannel('flutter_aliyun_slider');
 
   TestWidgetsFlutterBinding.ensureInitialized();
 
