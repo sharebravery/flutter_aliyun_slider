@@ -7,7 +7,7 @@
 [![pub version][pub-image]][pub-url]
 
 [pub-image]: https://img.shields.io/pub/v/flutter_aliyun_captcha.svg
-[pub-url]: https://pub.dev/packages/flutter_aliyun_captcha
+[pub-url]: https://github.com/sharebravery/flutter_aliyun_slider
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
@@ -146,7 +146,7 @@ AliyunCaptchaButton(
 String sdkVersion = await AliyunCaptcha.sdkVersion;
 ```
 
-## Slide IFrame Html (暂时需要自行部署)
+## Slider IFrame Html (暂时需要自行部署)
 
 ```
 <!DOCTYPE html>
