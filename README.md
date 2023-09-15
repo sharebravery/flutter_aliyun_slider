@@ -27,7 +27,7 @@
 
 <div>
   <img src='https://github.com/leanflutter/flutter_aliyun_captcha/raw/master/screenshots/flutter_aliyun_captcha-ios-slide.png' width=280>
-  <img src='https://github.com/leanflutter/flutter_aliyun_captcha/raw/master/screenshots/flutter_aliyun_captcha-ios-smart.png' width=280>
+  <img src='https://raw.githubusercontent.com/leanflutter/flutter_aliyun_captcha/master/screenshots/flutter_aliyun_captcha-ios-smart.png' width=280>
 </div>
 
 ## 快速开始
